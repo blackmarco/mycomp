@@ -21,18 +21,21 @@ final class Transaction
     }
     
     //Retorna a conexão ativa com a base de dados
-    public static function getConn() {
+    public static function getConn() 
+    {
         return self::$conn;
     }
     
     //Aplica as alteraçãoes de fecha a conexão
-    public static function commit() {
+    public static function commit()
+    {
         self::$conn->commit();
         self::$conn = null;
     }
     
     //Reverte todas a alterações e fecha a conexão
-    public static function rollback() {
+    public static function rollback()
+    {
         self::$conn->rollback();
         self::$conn = null;
     }
