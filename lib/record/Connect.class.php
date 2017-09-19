@@ -5,6 +5,9 @@
  * Utilizando a classe PDO, de abstração do banco de dados, virar gerar uma api de conexão,
  * capaz de interagir com diversos SGBDs.
  */
+
+use PDO;
+
 final class Connect
 {
     //Define como private para evitar que seja instanciado um objeto de conexão
