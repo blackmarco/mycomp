@@ -175,7 +175,7 @@ class Record
             $this->nomeId = null;
         }else{
             //Lança uma exceção caso nao exista um id
-            throw new Exception('Informa um id para ser excluído!');
+            throw new Exception('Informe um id para ser excluído!');
         }
         
         //Verifica se a conexão está ativa
@@ -197,6 +197,65 @@ class Record
             throw new Exception('Não há conexão ativa!');
         }    
     }
+    
+    //Altera um registo na base de dados
+    /* @param $id = valor do id */
+    /* @param $nomeCampo = nome do campo no banco, caso nao seja "id" */
+    public function update($id = null, $nomeCampo = null) 
+    {
+        //Verifica se foi passado id como parâmetro
+        if($id){
+            //Atribui ao atributo id
+            $this->id = $id;
+            //Verifica se foi passado o nome do id
+            if($nomeCampo){
+                //Atribui ao atributo id
+                $this->nomeId = $nomeCampo;
+            }
+        }
+        
+        //Se existir um id começa a montar a query
+        if($this->id){
+            $this->sql = "UPDATE {$this->getTable()} SET ";
+            foreach ($this->data as $key => $value){
+                $set[] = "{$key} = :{$key}";
+            }
+            $this->sql .= implode(', ', $set);
+            
+            //Verifica se o nome do campo é diferente de id e concatena a query com o comando correto
+            if($this->nomeId){
+                $this->sql .= " WHERE {$this->nomeId} = {$this->id}";
+            }else{
+                $this->sql .= " WHERE id = {$this->id}";
+            }
+            //Limpa os dois atributos da memória
+            $this->id = null;
+            $this->nomeId = null;
+            
+            //Verifica a conexão está ativa
+            if($conn = Transaction::getConn()){
+                //Prepara a query
+                $stmt = $conn->prepare($this->sql);
+                //executa os binds
+                foreach ($this->data as $key => $value){
+                    $stmt->bindValue(":{$key}", $value);
+                }
+                //Executa a query
+                $result = $stmt->execute();
+                //Libera a variavel sql da memória
+                $this->sql = null;
+                //Retorna true ou false
+                return $result;
+             //Se não houver conexão ativa, lança uma exceção    
+            }else{
+                throw new Exception('Não há conexão ativa!');
+            }
+        }else{
+            //Lança uma exceção caso nao exista um id
+            throw new Exception('Informe um id para ser excluído!');
+        }
+    }
+    
     
     //Obtém o nome da tabela do objeto no banco de dados
     private function getTable() 

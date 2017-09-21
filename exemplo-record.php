@@ -33,6 +33,13 @@ Transaction::open();
 //$delete2->delete(5);     
 
 //ALTERAR
+//$update = new UsuarioRecord();
+//$update->nome = "Mamba";
+//$update->update(1);
+//OU 
+//$update = new UsuarioRecord(1);
+//$update->nome = "Mamba";
+//$update->update();
 
 
 Transaction::commit();
