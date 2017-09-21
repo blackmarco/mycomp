@@ -62,7 +62,7 @@ class Repository
     /* @param $filtro Filter */
     public function count(Filter $filter) 
     {
-     //Instancia um objeto filho de Record
+        //Instancia um objeto filho de Record
         $ar = new $this->classname;
         //Começa a montar a query
         $this->sql = "SELECT COUNT(*)FROM {$ar->getTable()} ";
@@ -83,7 +83,43 @@ class Repository
             $numRows = $stmt->fetch(PDO::FETCH_NUM)[0];
             //Retorna
             return $numRows;
-        } 
+        //Se não houver conexão ativa, lança uma exceção 
+        }else{
+            throw new Exception('Não há conexão ativa!');
+        }  
+    }
+    
+    //Deleta vários registros, baseado nos filtros
+    /* @param $filter Filter */
+    public function delete(Filter $filter) {
+        //Instancia um objeto filho de Record
+        $ar = new $this->classname;
+        //Começa a montar a query
+        $this->sql = "DELETE FROM {$ar->getTable()} ";
+        $this->sql .= $filter->mount();
+        
+        //Verifica se existe uma transação ativa
+        if($conn = Transaction::getConn()){  
+            //Prepara a query
+            $stmt = $conn->prepare($this->sql);
+            //Faz os binds
+            if(count($filter->getParams()) >= 1){
+                foreach ($filter->getParams() as $param) {
+                    $stmt->bindValue(":".$param[0], $param[1]);
+                }
+            }
+            //Executa
+            $result = $stmt->execute();
+            //Retorna true ou false
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        //Se não houver conexão ativa, lança uma exceção 
+        }else{
+            throw new Exception('Não há conexão ativa!');
+        }   
     }
     
 }

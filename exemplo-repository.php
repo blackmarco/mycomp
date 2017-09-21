@@ -9,9 +9,9 @@ include_once './lib/record/Record.class.php';
 include_once './UsuarioRecord.class.php';
 
 $filtro = new Filter;
-$filtro->where("nome", "Mamba");
+//$filtro->where("nome", "Mamba");
 //$filtro->orWhere("nome", "Rafa");
-//$filtro->orWhere("nome", "Liani");
+//$filtro->orWhere("nome", "Berenice");
 //$filtro->setProperty("ORDER BY", "nome", "ASC");
 
 Transaction::open();
@@ -29,5 +29,12 @@ $repo = new Repository('UsuarioRecord');
 //echo $numUsers;
 
 //DELETE
+//$del = $repo->delete($filtro);
+//if($del){
+//    echo "Sucesso";
+//}else{
+//    echo "Falha";
+//}
+
 
 Transaction::commit();
