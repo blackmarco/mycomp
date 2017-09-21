@@ -3,7 +3,6 @@
 /* 
  * Classe para a manipulação dos filtros de seleção de dados no banco de dados.
  */
-
 class Filter
 {
     /* @var $expressions = filtros da cláusura where da seleção */
@@ -11,7 +10,7 @@ class Filter
     /* @var $preperties =  propriedades da seleção */
     private $properties;
     /* @var $params =  parametros da seleção */
-    private $params;
+    private $params = array();
     
     //Adiciona uma clásura where ao filtro
     /* @param $column = nome da coluna */
@@ -21,15 +20,22 @@ class Filter
     {
         //Se o operador for null atribui o valor "="
         $operator = $operator ? $operator : "=";
+        //Se ja exixtir um parametro com o mesmo nome, adiciona um numero randomico ao bind
+        $bind = $column;
+        foreach ($this->params as $param) {
+            if(in_array($bind, $param)){
+                $bind = $bind.rand(1, 100);
+            }
+        }
         //Se a expressão estiver vazia adciona WHERE no inicio
         if(empty($this->expressions)){
-            $this->expressions[] = " WHERE ({$column} {$operator} :{$column})";
+            $this->expressions[] = " WHERE {$column} {$operator} :{$bind}";
         //Do contrário adiciona AND no início
         }else{
-            $this->expressions[] = " AND ({$column} {$operator} :{$column})";
+            $this->expressions[] = " AND {$column} {$operator} :{$bind}";
         }
         //Salva os parâmetros
-        $this->params[$column] = $value;
+        $this->params[] = [$bind, $value];
     }
     
     //Adiciona um outro filtro com o comparador OR
@@ -40,15 +46,22 @@ class Filter
     {
         //Se o operador for null atribui o valor "="
         $operator = $operator ? $operator : "=";
+        //Se ja exixtir um parametro com o mesmo nome, adiciona um numero randomico ao bind
+        $bind = $column;
+        foreach ($this->params as $param) {
+            if(in_array($bind, $param)){
+                $bind = $bind.rand(1, 100);
+            }
+        }
         //Se a expressão estiver vazia adciona WHERE no inicio
         if(empty($this->expressions)){
-            $this->expressions[] = " WHERE ({$column} {$operator} :{$column})";
+            $this->expressions[] = " WHERE {$column} {$operator} :{$bind}";
         //Do contrário adiciona AND no início
         }else{
-            $this->expressions[] = " OR ({$column} {$operator} :{$column})";
+            $this->expressions[] = " OR {$column} {$operator} :{$bind}";
         }
         //Salva os parâmetros
-        $this->params[$column] = $value;
+        $this->params[] = [$bind, $value];
     }
     
     //Adiciona uma propriedade para o filtro. Ex: ORDER BY, GROUP BY.
@@ -66,12 +79,20 @@ class Filter
     {
         $expression = '';
         //Concatena s filtros
-        foreach ($this->expressions as $filter){
-            $expression .= $filter;
+        if(count($this->expressions) > 1){
+            foreach ($this->expressions as $filter){
+                $expression .= $filter;
+            }
+        }else{
+            $expression .= $this->expressions[0];
         }
         //Concatena as propriedades
-        foreach ($this->properties as $property){
-            $expression .= " " . $property;
+        if(count($this->properties) > 1){
+            foreach ($this->properties as $property){
+                $expression .= " " . $property;
+            }
+        }else{
+            $expression .= " " . $this->properties[0];
         }
         //Retorna a expressão
         return $expression;

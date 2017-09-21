@@ -1,11 +1,33 @@
 <?php
 
+include_once './config.php';
+include_once './lib/record/Connect.class.php';
+include_once './lib/record/Transaction.class.php';
 include_once './lib/record/Filter.class.php';
+include_once './lib/record/Repository.class.php';
+include_once './lib/record/Record.class.php';
+include_once './UsuarioRecord.class.php';
 
 $filtro = new Filter;
-$filtro->where("nome", "Marco");
-$filtro->orWhere("idade", 24, "<>");
-$filtro->setProperty("GROUP BY", "nome");
-$filtro->setProperty("ORDER BY", "idade", "ASC");
-echo $filtro->mount()."<br>";
-var_dump($filtro->getParams());
+$filtro->where("nome", "Mamba");
+//$filtro->orWhere("nome", "Rafa");
+//$filtro->orWhere("nome", "Liani");
+//$filtro->setProperty("ORDER BY", "nome", "ASC");
+
+Transaction::open();
+
+$repo = new Repository('UsuarioRecord');
+
+//LOAD
+//$users = $repo->load($filtro);
+//foreach ($users as $user) {
+//    echo "{$user->nome} - {$user->email} <br>";
+//}
+
+//COUNT
+//$numUsers = $repo->count($filtro);
+//echo $numUsers;
+
+//DELETE
+
+Transaction::commit();

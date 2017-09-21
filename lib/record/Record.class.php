@@ -258,7 +258,7 @@ class Record
     
     
     //Obtém o nome da tabela do objeto no banco de dados
-    private function getTable() 
+    public function getTable() 
     {
         //Obtém o nome da classe que esta realizando operaçãoes no banco
         $class = get_class($this);

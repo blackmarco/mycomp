@@ -10,9 +10,9 @@ Transaction::open();
 
 //GRAVADO NO BANCO DE DADOS
 //$record = new UsuarioRecord();
-//$record->nome = "Berenice";
-//$record->email = "bere.com";
-//$record->idade = 41;
+//$record->nome = "Liani";
+//$record->email = "liani.com";
+//$record->idade = 23;
 //if($record->save()){
 //    echo 'Inserido com sucesso';
 //}
