@@ -36,5 +36,6 @@ $repo = new Repository('UsuarioRecord');
 //    echo "Falha";
 //}
 
+//FULLREAD...
 
 Transaction::commit();

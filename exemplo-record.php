@@ -5,14 +5,16 @@ require_once './lib/record/Connect.class.php';
 require_once './lib/record/Transaction.class.php';
 require_once './lib/record/Record.class.php';
 require_once './UsuarioRecord.class.php';
+require_once './lib/record/Filter.class.php';
+require_once './lib/record/Repository.class.php';
 
 Transaction::open();
 
 //GRAVADO NO BANCO DE DADOS
 //$record = new UsuarioRecord();
-//$record->nome = "Liani";
-//$record->email = "liani.com";
-//$record->idade = 23;
+//$record->nome = "Luiz";
+//$record->email = "luiz@gmail.com";
+//$record->idade = 1;
 //if($record->save()){
 //    echo 'Inserido com sucesso';
 //}
@@ -41,5 +43,10 @@ Transaction::open();
 //$update->nome = "Mamba";
 //$update->update();
 
+//ALL
+//$all = UsuarioRecord::all();
+//foreach ($all as $one) {
+//    echo "{$one->nome} - {$one->email} <br>";
+//}
 
 Transaction::commit();

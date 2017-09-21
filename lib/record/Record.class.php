@@ -145,6 +145,19 @@ class Record
         }
     }
     
+    //Método estático que obtém todos os registros de uma tabela
+    public static function all() 
+    {
+        //Obtém o nome da classe
+        $classname = get_called_class();
+        //Instancia a classe Repository
+        $repo = new Repository($classname);
+        //retorna todos os dados
+        return $repo->load(new Filter);
+        
+    }
+
+
     //Deleta um registo na base de dados
     /* @param $id = valor do id */
     /* @param $nomeCampo = nome do campo no banco, caso nao seja "id" */

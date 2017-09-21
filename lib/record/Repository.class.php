@@ -91,7 +91,8 @@ class Repository
     
     //Deleta vários registros, baseado nos filtros
     /* @param $filter Filter */
-    public function delete(Filter $filter) {
+    public function delete(Filter $filter) 
+    {
         //Instancia um objeto filho de Record
         $ar = new $this->classname;
         //Começa a montar a query
@@ -122,5 +123,9 @@ class Repository
         }   
     }
     
+    //Executa uma query manual
+    public function fullLoad($query, $binds = array()) {
+        //Á fazer...
+    }
 }
 
