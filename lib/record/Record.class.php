@@ -6,14 +6,14 @@
  */
 
 class Record
-{
-    //Array de atributos e valores do objeto filho da classe
+{ 
+    /* @var $data = atributos do objeto */
     protected $data;
-    //Armazena o comando DML que a ser executado
+    /* @var $sql =  comando DML a ser executado */
     private $sql;
-    //Id 
+    /* @var $id =  id do registro em que sera executada a operação */
     private $id;
-    //Nome do campo id, caso seja diferente de id
+    /* @var $nomeId =  nome do campo, caso nao seja id */
     private $nomeId;
     
     //Método construtor, se passado um id ele ja carrega o objeto com suas propriedades
