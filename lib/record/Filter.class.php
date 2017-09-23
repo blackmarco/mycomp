@@ -3,6 +3,7 @@
 /* 
  * Classe para a manipulação dos filtros de seleção de dados no banco de dados.
  */
+
 class Filter
 {
     /* @var $expressions = filtros da cláusura where da seleção */

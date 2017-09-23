@@ -8,6 +8,8 @@ include_once './lib/record/Repository.class.php';
 include_once './lib/record/Record.class.php';
 include_once './UsuarioRecord.class.php';
 
+use Mylib\lib\record\Filter;
+
 $filtro = new Filter;
 //$filtro->where("nome", "Mamba");
 //$filtro->orWhere("nome", "Rafa");
@@ -36,6 +38,8 @@ $repo = new Repository('UsuarioRecord');
 //    echo "Falha";
 //}
 
-//FULLREAD...
+//FULLREAD
+//$full =  $repo->fullLoad("SELECT * FROM usuario WHERE idade = :idade And nome = :nome", "idade=21&nome=Marco");
+//echo $full[0]->nome;
 
 Transaction::commit();

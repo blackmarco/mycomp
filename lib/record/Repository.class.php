@@ -5,6 +5,7 @@
  * Implementação do Design Pattern Repository
  */
 
+
 class Repository
 {
     /* @var $classname = nome da classe */
@@ -111,6 +112,7 @@ class Repository
             }
             //Executa
             $result = $stmt->execute();
+            $this->sql = null;
             //Retorna true ou false
             if($result){
                 return true;
@@ -124,8 +126,38 @@ class Repository
     }
     
     //Executa uma query manual
-    public function fullLoad($query, $binds = array()) {
-        //Á fazer...
+    public function fullLoad($query, $binds = null) {
+        //Salva a query
+        $this->sql = $query;
+        //faz um parse da string de termos e salva em um array
+        $terms = array();
+        parse_str($binds, $terms);
+        //Verifica se existe uma conexão ativa
+        if($conn = Transaction::getConn()){
+            //Prepara a query
+            $stmt = $conn->prepare($this->sql);
+            //Faz os binds
+            foreach ($terms as $bind => $value) {
+                $stmt->bindValue(":{$bind}", $value);
+            }
+            //Executa
+            $result = $stmt->execute();
+            $obj = array();
+            //Verifica se teve resultado
+            if($result){
+                //Salva os resultados em um array de objetos
+                while($row = $stmt->fetchObject($this->classname)){
+                    $obj[] = $row;
+                }
+            }
+            $this->sql = null;
+            //Retorna os objetos
+            return $obj;
+        //Se não houver conexão ativa, lança uma exceção 
+        }else{
+            throw new Exception('Não há conexão ativa!');
+        }   
+
     }
 }
 
