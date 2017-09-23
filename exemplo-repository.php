@@ -3,19 +3,19 @@ require_once './config.php';
 require_once './vendor/autoload.php';
 require_once './UsuarioRecord.php';
 
-$filtro = new \Mylib\record\Filter;
-//$filtro->orWhere("nome", "Rafa");
+$filtro = new \Mylib\Record\Filter;
+$filtro->orWhere("nome", "Teste Log");
 //$filtro->orWhere("nome", "Bere");
 //$filtro->setProperty("ORDER BY", "nome", "ASC");
 
-Mylib\record\Transaction::open();
+Mylib\Record\Transaction::open();
 
-$repo = new Mylib\record\Repository('UsuarioRecord');
+$repo = new Mylib\Record\Repository('UsuarioRecord');
 
 //LOAD
 //$users = $repo->load($filtro);
 //foreach ($users as $user) {
-//    echo "{$user->nome} - {$user->email} <br>";
+//    echo "{$user->nome} - {$user->email}<br>"; 
 //}
 
 //COUNT
@@ -31,7 +31,7 @@ $repo = new Mylib\record\Repository('UsuarioRecord');
 //}
 
 //FULLREAD
-//$full =  $repo->fullLoad("SELECT * FROM usuario WHERE idade = :idade And nome = :nome", "idade=21&nome=Marco");
+//$full =  $repo->fullLoad("SELECT * FROM usuario WHERE idade = :idade AND nome = :nome", "idade=21&nome=Marco");
 //echo $full[0]->nome;
 
-Mylib\record\Transaction::commit();
+Mylib\Record\Transaction::commit();

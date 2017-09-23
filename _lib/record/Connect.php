@@ -6,7 +6,7 @@
  * capaz de interagir com diversos SGBDs.
  */
 
-namespace Mylib\record;
+namespace Mylib\Record;
 
 use PDO;
 

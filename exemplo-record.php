@@ -4,13 +4,13 @@ require_once './config.php';
 require_once './vendor/autoload.php';
 require_once './UsuarioRecord.php';
 
-Mylib\record\Transaction::open();
+Mylib\Record\Transaction::open();
 
 //GRAVADO NO BANCO DE DADOS
 //$record = new UsuarioRecord();
-//$record->nome = "Luiz";
-//$record->email = "luiz@gmail.com";
-//$record->idade = 1;
+//$record->nome = "Teste log";
+//$record->email = "log@gmail.com";
+//$record->idade = 21;
 //if($record->save()){
 //    echo 'Inserido com sucesso';
 //}
@@ -28,12 +28,12 @@ Mylib\record\Transaction::open();
 //$delete->delete();
 //OU
 //$delete2 = new UsuarioRecord();
-//$delete2->delete(5);     
+//$delete2->delete(10);     
 
 //ALTERAR
 //$update = new UsuarioRecord();
 //$update->nome = "Mamba";
-//$update->update(1);
+//$update->update(9);
 //OU 
 //$update = new UsuarioRecord(1);
 //$update->nome = "Mamba";
@@ -45,4 +45,4 @@ Mylib\record\Transaction::open();
 //    echo "{$one->nome} - {$one->email} <br>";
 //}
 
-Mylib\record\Transaction::commit();
+Mylib\Record\Transaction::commit();

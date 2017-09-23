@@ -15,7 +15,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Mylib\\record\\": "_lib/record/"
+            "Mylib\\Record\\": "_lib/Record/",
+            "Mylib\\Facades\\": "_lib/Facades/"
         }
     }
 }

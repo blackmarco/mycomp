@@ -4,7 +4,7 @@
  * Classe para a manipulação dos filtros de seleção de dados no banco de dados.
  */
 
-namespace Mylib\record;
+namespace Mylib\Record;
 
 class Filter
 {

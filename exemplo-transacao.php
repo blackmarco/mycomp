@@ -1,16 +1,15 @@
 <?php
 
 require_once './config.php';
-require_once './lib/record/Transaction.class.php';
-include_once './lib/record/Connect.class.php';
+require_once './vendor/autoload.php';
 
 //Inicia transação
-Transaction::open();
+Mylib\Record\Transaction::open();
 
 //Obtém a conexão
-$conn = Transaction::getConn();
+$conn = Mylib\Record\Transaction::getConn();
 
 //$conn->exec("INSERT INTO .....");
 
 //Aplica as alterações
-Transaction::commit();
+Mylib\Record\Transaction::commit();

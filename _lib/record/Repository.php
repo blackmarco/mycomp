@@ -5,10 +5,13 @@
  * Implementação do Design Pattern Repository
  */
 
-namespace Mylib\record;
+namespace Mylib\Record;
 
-use Mylib\record\Transaction;
-use Mylib\record\Filter;
+use Exception;
+use Mylib\Record\Transaction;
+use Mylib\Record\Filter;
+use Mylib\Facades\Log;
+use PDO;
 
 class Repository
 {
@@ -16,6 +19,8 @@ class Repository
     private $classname;
     /* @var $sql =  comando DML a ser executado */
     private $sql;
+    /* @var $log =  salva o comando DML executado em um arquivo de log*/
+    private $log;
     
     //Método construtor
     /* @param $classnamen = nome da classe */
@@ -23,6 +28,10 @@ class Repository
     {
         //Atribui o nome da classe ao atributo classname
         $this->classname = $classname;
+        //Instancia o objeto log
+        $this->log = new Log('logTransacoes');
+        //Define o caminho do log
+        $this->log->logDB(__DIR__.'/Logs/logDataBase.log');
     }
     
     //Carrega uma coleção de dados
@@ -54,6 +63,8 @@ class Repository
                     $obj[] = $row;
                 }
             }
+            //Salva a query sql no log
+            $this->log->addInfo($this->sql);
             $this->sql = null;
             //Retorna os objetos
             return $obj;
@@ -84,6 +95,9 @@ class Repository
             }
             //Executa
             $stmt->execute();
+            //Salva a query sql no log
+            $this->log->addInfo($this->sql);
+            $this->sql = null;
             //Obtém o numero de linhas
             $numRows = $stmt->fetch(PDO::FETCH_NUM)[0];
             //Retorna
@@ -116,6 +130,8 @@ class Repository
             }
             //Executa
             $result = $stmt->execute();
+            //Salva a query sql no log
+            $this->log->addInfo($this->sql);
             $this->sql = null;
             //Retorna true ou false
             if($result){
@@ -154,6 +170,8 @@ class Repository
                     $obj[] = $row;
                 }
             }
+            //Salva a query sql no log
+            $this->log->addInfo($this->sql);
             $this->sql = null;
             //Retorna os objetos
             return $obj;

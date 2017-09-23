@@ -5,9 +5,11 @@
  * Implementação do Design Pattern Active Record.
  */
 
-namespace Mylib\record;
+namespace Mylib\Record;
 
-use Mylib\record\Transaction;
+use Mylib\Record\Transaction;
+use Exception;
+use Mylib\Facades\Log;
 
 class Record
 { 
@@ -15,6 +17,8 @@ class Record
     protected $data;
     /* @var $sql =  comando DML a ser executado */
     private $sql;
+    /* @var $log =  salva o comando DML executado em um arquivo de log*/
+    private $log;
     /* @var $id =  id do registro em que sera executada a operação */
     private $id;
     /* @var $nomeId =  nome do campo, caso nao seja id */
@@ -25,6 +29,11 @@ class Record
     /* @param $nomeCampo = nome do campo no banco, caso nao seja "id" */
     public function __construct($id = null, $nomeCampo = null) 
     {
+        //Instancia o objeto log
+        $this->log = new Log('logTransacoes');
+        //Define o caminho do log
+        $this->log->logDB(__DIR__.'/Logs/logDataBase.log');
+        
         //Verifica se foi passado um id como parâmetro
         if($id){
             //Verifica se foi passado o nome do campo id como parâmetro e executa o método loadById
@@ -80,6 +89,8 @@ class Record
                 }
                 //Executa a operação própiamente dita
                 $result = $stmt->execute();
+                //Salva a query sql no log
+                $this->log->addInfo($this->sql);
                 //Limpa a query sql
                 $this->sql = null;
                 //Retorna o resultado
@@ -122,6 +133,8 @@ class Record
             if($result){
                 $obj = $stmt->fetchObject(get_class($this));
             }
+            //Salva a query sql no log
+            $this->log->addInfo($this->sql);
             $this->sql = null;
             return $obj;
         //Se não houver conexão ativa, lança uma exceção 
@@ -201,6 +214,8 @@ class Record
             $stmt = $conn->prepare($this->sql);
             //Executa
             $result = $stmt->execute();
+            //Salva a query sql no log
+            $this->log->addInfo($this->sql);
             //Limpa o atributo
             $this->sql = null;
             //Retorna se falhou ou obteve sucesso
@@ -259,6 +274,8 @@ class Record
                 }
                 //Executa a query
                 $result = $stmt->execute();
+                //Salva a query sql no log
+                $this->log->addInfo($this->sql);
                 //Libera a variavel sql da memória
                 $this->sql = null;
                 //Retorna true ou false
