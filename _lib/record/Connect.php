@@ -6,6 +6,10 @@
  * capaz de interagir com diversos SGBDs.
  */
 
+namespace Mylib\record;
+
+use PDO;
+
 final class Connect
 {
     //Define como private para evitar que seja instanciado um objeto de conexão

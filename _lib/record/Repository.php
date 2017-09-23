@@ -5,6 +5,10 @@
  * Implementação do Design Pattern Repository
  */
 
+namespace Mylib\record;
+
+use Mylib\record\Transaction;
+use Mylib\record\Filter;
 
 class Repository
 {

@@ -5,6 +5,10 @@
  * e dar commit nas operações com a na base de dados.
  */
 
+namespace Mylib\record;
+
+use Mylib\record\Connect;
+
 final class Transaction
 {
     //Conexão ativa com a base de dados

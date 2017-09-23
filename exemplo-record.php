@@ -1,14 +1,10 @@
 <?php
 
 require_once './config.php';
-require_once './lib/record/Connect.class.php';
-require_once './lib/record/Transaction.class.php';
-require_once './lib/record/Record.class.php';
-require_once './UsuarioRecord.class.php';
-require_once './lib/record/Filter.class.php';
-require_once './lib/record/Repository.class.php';
+require_once './vendor/autoload.php';
+require_once './UsuarioRecord.php';
 
-Transaction::open();
+Mylib\record\Transaction::open();
 
 //GRAVADO NO BANCO DE DADOS
 //$record = new UsuarioRecord();
@@ -49,4 +45,4 @@ Transaction::open();
 //    echo "{$one->nome} - {$one->email} <br>";
 //}
 
-Transaction::commit();
+Mylib\record\Transaction::commit();

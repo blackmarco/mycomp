@@ -5,6 +5,10 @@
  * Implementação do Design Pattern Active Record.
  */
 
+namespace Mylib\record;
+
+use Mylib\record\Transaction;
+
 class Record
 { 
     /* @var $data = atributos do objeto */

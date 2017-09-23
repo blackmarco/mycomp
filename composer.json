@@ -1,0 +1,21 @@
+{
+    "name": "blackmarco/mycomponents",
+    "description": "Estou desenvolvendo essa biblioteca de componentes PHP para testar e aprimorar meus conhecimentos em programação.",
+    "type": "library",
+	"license": "GNU GPL",
+    "authors": [
+        {
+            "name": "Marco",
+            "email": "marco.belmont6@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "monolog/monolog" : "1.0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mylib\\record\\": "_lib/record/"
+        }
+    }
+}

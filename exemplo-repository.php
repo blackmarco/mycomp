@@ -1,24 +1,16 @@
 <?php
+require_once './config.php';
+require_once './vendor/autoload.php';
+require_once './UsuarioRecord.php';
 
-include_once './config.php';
-include_once './lib/record/Connect.class.php';
-include_once './lib/record/Transaction.class.php';
-include_once './lib/record/Filter.class.php';
-include_once './lib/record/Repository.class.php';
-include_once './lib/record/Record.class.php';
-include_once './UsuarioRecord.class.php';
-
-use Mylib\lib\record\Filter;
-
-$filtro = new Filter;
-//$filtro->where("nome", "Mamba");
+$filtro = new \Mylib\record\Filter;
 //$filtro->orWhere("nome", "Rafa");
-//$filtro->orWhere("nome", "Berenice");
+//$filtro->orWhere("nome", "Bere");
 //$filtro->setProperty("ORDER BY", "nome", "ASC");
 
-Transaction::open();
+Mylib\record\Transaction::open();
 
-$repo = new Repository('UsuarioRecord');
+$repo = new Mylib\record\Repository('UsuarioRecord');
 
 //LOAD
 //$users = $repo->load($filtro);
@@ -42,4 +34,4 @@ $repo = new Repository('UsuarioRecord');
 //$full =  $repo->fullLoad("SELECT * FROM usuario WHERE idade = :idade And nome = :nome", "idade=21&nome=Marco");
 //echo $full[0]->nome;
 
-Transaction::commit();
+Mylib\record\Transaction::commit();
