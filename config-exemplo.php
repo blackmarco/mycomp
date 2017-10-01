@@ -14,6 +14,13 @@ define('DBNAME', ''); // Nome do banco de dados
 define('DBUSER', 'root'); // Usuário do banco de dados
 define('DBPASS', ''); // Senha do banco de dados
 
+/* Configurações do SMTP para envio de emails */
+define('SMTPHOST', 'smtp.email.com'); //Host do SMTP
+define('SMTPUSER', 'email@gmail.com'); //Usuário SMTP
+define('SMTPPASS', 'secure'); //Senha SMTP
+define('SMTPSECURE', 'tls'); //Tipo de segurança
+define('SMTPPORT', 587); // Posta SMTP
+
 /* Tratamento de erros */
 function myErrorHandler($code, $message, $file, $line) 
 {
