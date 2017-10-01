@@ -29,7 +29,7 @@ class Repository
         //Atribui o nome da classe ao atributo classname
         $this->classname = $classname;
         //Instancia o objeto log
-        $this->log = new Log('logTransacoes');
+        $this->log = new Log('DBTransações');
         //Define o caminho do log
         $this->log->logDB(__DIR__.'/Logs/logDataBase.log');
     }

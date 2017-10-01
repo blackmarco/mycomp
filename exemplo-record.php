@@ -20,7 +20,7 @@ Mylib\Record\Transaction::open();
 //echo $user->nome;
 
 //BUSCA POR ID AO INTANCIAR UM OBJETO
-//$usuario = new UsuarioRecord(1);
+//$usuario = new UsuarioRecord(1);;
 //echo $usuario->nome;
 
 //DELETAR 

@@ -30,7 +30,7 @@ class Record
     public function __construct($id = null, $nomeCampo = null) 
     {
         //Instancia o objeto log
-        $this->log = new Log('logTransacoes');
+        $this->log = new Log('DBTransações');
         //Define o caminho do log
         $this->log->logDB(__DIR__.'/Logs/logDataBase.log');
         
@@ -116,17 +116,19 @@ class Record
         //Monta a query de seleção corretamente
         $this->sql = "SELECT * FROM {$this->getTable()}";
         if($nomeCampo){
-            $this->sql .= " WHERE {$nomeCampo} = {$id}"; 
             //Armazena o nome do campo id
             $this->nomeId = $nomeCampo;
         }else{
-            $this->sql .= " WHERE id = {$id}";
+            $this->nomeId = "id";
         }
+            $this->sql .= " WHERE {$this->nomeId} = :{$this->nomeId}";
         
         //Verifica se a conexão com o banco está ativa
         if($conn = Transaction::getConn()){
             //Prepara a query
             $stmt = $conn->prepare($this->sql);
+			//Faz o bind
+			$stmt->bindValue(":".$this->nomeId, $this->id);
             //Executa
             $result = $stmt->execute();
             //Se obtiver resultado, retornta em forma de objeto
